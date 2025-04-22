@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Warp Drive</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body class="bg-black text-white">
+    <div class="min-h-screen flex items-start md:items-center justify-center">
+      <div class="w-full md:max-w-[60%] mx-auto flex flex-col min-h-screen px-4">
+        <div class="flex-grow p-4 flex items-center justify-center">
+          <p class="text-lg w-full text-center p-2">
+            Welcome aboard the warp drive!
+          </p>
+        </div>
+        <div class="p-4 grid grid-cols-2 gap-4">
+          <button class="w-full aspect-[3/1] outline-white outline text-white rounded-lg hover:bg-slate-700">
+            Engage
+          </button>
+          <button class="w-full aspect-[3/1] outline-white outline text-white rounded-lg hover:bg-slate-700">
+            Warp 1
+          </button>
+          <button class="w-full aspect-[3/1] outline-white outline text-white rounded-lg hover:bg-slate-700">
+            Warp 5
+          </button>
+          <button class="w-full aspect-[3/1] outline-white outline text-white rounded-lg hover:bg-slate-700">
+            Full Speed
+          </button>
+        </div>        
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
