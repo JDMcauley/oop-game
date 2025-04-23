@@ -8,9 +8,10 @@
   </head>
   <body class="bg-black text-white">
     <div class="min-h-screen flex items-start md:items-center justify-center">
-      <div class="w-full md:max-w-[60%] mx-auto flex flex-col min-h-screen px-4">
+      <div class="w-full md:max-w-[60%] mx-auto flex flex-col min-h-[100dvh] px-4 pt-2">
         <div class="flex-grow p-4 bg-black text-green-400 font-mono overflow-y-auto border border-white rounded-lg shadow-inner">
-          >Welcome aboard the warp drive!
+          <p id="beaconName" class="text-center mb-4 md:my-10"></p>
+          <pre id="beaconDescription" class="whitespace-pre-wrap text-green-400 font-mono"></pre>
         </div>
         <div class="p-4 flex items-center justify-center">
           <input
@@ -22,5 +23,6 @@
         </div>
       </div>
     </div>
+    <script src="index.js"></script>
   </body>
 </html>
