@@ -52,8 +52,25 @@ class Ship {
     }
 
     set hull(value) {
-        if (value !== "number" || value < 0) {
+        if (typeof value !== "number" || value < 0) {
             return "Invalid. Hull value must be a postive number."
         }
     }
 }
+
+const StartBeacon = new Beacon("Welcome to Warp Drive");
+StartBeacon.description = `>You carry with you crucial data for the survival of the federation\n
+>Use your warp drive to move across the galaxy, from one beacon to the next\n
+>Be wary of your fuel reserves and damage to your ships hull\n
+\n
+>Type 'Help' to see a list of commands`
+
+function displayBeacon(beacon){
+    becaonName = beacon.name
+    beaconDescribe = beacon.description
+
+    document.getElementById("beaconName").innerHTML = becaonName
+    document.getElementById("beaconDescription").innerHTML = beaconDescribe
+}
+
+displayBeacon(StartBeacon)
