@@ -9,16 +9,18 @@
   <body class="bg-black text-white">
     <div class="min-h-screen flex items-start md:items-center justify-center">
       <div class="w-full md:max-w-[60%] mx-auto flex flex-col min-h-[100dvh] px-4 pt-2">
-        <div class="flex-grow p-4 bg-black text-green-400 font-mono overflow-y-auto border border-white rounded-lg shadow-inner">
+        <div class="flex-grow p-4 bg-black text-green-400 font-mono overflow-y-auto border border-green-700 rounded-lg shadow-inner">
           <p id="beaconName" class="text-center mb-4 md:my-10"></p>
           <pre id="beaconDescription" class="whitespace-pre-wrap text-green-400 font-mono"></pre>
         </div>
+        <div id="errorBox" class="text-red-400 font-mono p-2 min-h-[1.5rem]"></div>
         <div class="p-4 flex items-center justify-center">
-          <input
-            type="text"
-            placeholder="Enter command..."
-            class="w-full text-lg bg-black text-white border border-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
-          />
+          <form id="commandForm" class="w-full flex gap-2">
+            <input id="userCommand" type="text" placeholder=">Enter Command" class="flex-grow bg-black text-green-400 font-mono p-2 border border-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 rounded"/>
+            <button type="submit" class="bg-green-500 text-black px-4 py-2 rounded font-mono hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-300">
+              Enter
+            </button>
+          </form>
         </div>        
         </div>
       </div>

@@ -23,6 +23,7 @@ class Beacon {
     set description(value) {
         this._description = value;
     }
+
 }
 
 class Ship {
@@ -65,12 +66,42 @@ StartBeacon.description = `>You carry with you crucial data for the survival of 
 \n
 >Type 'Help' to see a list of commands`
 
+const PirateBeacon = new Beacon("Pirates!")
+PirateBeacon.description = `>As you appear at the next beacon, you see lasers chasing after a civilian ship
+>They are followed by a small fighting ship, adorned with pirate colours
+
+>Do you come to the aid of the civilians?`
+
 function displayBeacon(beacon){
-    becaonName = beacon.name
-    beaconDescribe = beacon.description
+    let becaonName = beacon.name
+    let beaconDescribe = beacon.description
 
     document.getElementById("beaconName").innerHTML = becaonName
     document.getElementById("beaconDescription").innerHTML = beaconDescribe
 }
 
-displayBeacon(StartBeacon)
+let beaconList = [PirateBeacon]
+
+function jump(){
+    let newBeacon = Math.floor(Math.random() * beaconList.length)
+    return beaconList[newBeacon]
+}
+
+let currentBeacon = StartBeacon
+
+displayBeacon(currentBeacon)
+
+
+document.addEventListener("submit", function(e) {
+    e.preventDefault()
+    
+    command = document.getElementById("userCommand").value
+    
+    if (command.toLowerCase() === "jump"){
+        currentBeacon = jump()
+        displayBeacon(currentBeacon)
+    } else {
+        document.getElementById("userCommand").value = ""
+        document.getElementById("errorBox").innerHTML = "Not a valid command"
+    }
+})
