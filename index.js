@@ -155,11 +155,11 @@ class Ship {
 let PlayerShip = new Ship("Federation Courier");
 
 const StartBeacon = new Beacon("Welcome to Warp Drive");
-StartBeacon.description = `>You carry with you crucial data for the survival of the federation\n
->Use your warp drive to move across the galaxy, from one beacon to the next\n
+StartBeacon.description = `>You are a courier for the galactic federation, currently embroiled civil war, and losing.\n
+>You carry with you crucial data for the survival of the federation\n
+>Use your warp drive to move across rebel controlled space, from one beacon to the next\n
 >Be wary of your fuel reserves and damage to your ships hull\n
-\n
->Type 'Help' to see a list of commands`
+Type 'Help' to see a list of commands`
 
 const PirateBeacon = new Beacon("Pirates!")
 PirateBeacon.description = `>As you appear at the next beacon, you see lasers chasing after a civilian ship\n
@@ -188,12 +188,244 @@ PirateBeaconEvent.fightc = 0.5
 
 PirateBeacon.event = PirateBeaconEvent
 
+const DistressCall = new Beacon("Distress Call")
+DistressCall.description = `>As you finish your jump, your ship picks up a distress call.\n
+>You set coordinates toward it and discover a stranded rebel ship!\n
+>They hail you "Don't shoot! We're merely a courier vessel, we need help!\n
+\n
+>Do you help them?`
+
+const DistressCallEvent = new Event()
+DistressCallEvent.talkw = `>You're familiar with the issues their ship is facing, and offer your expertise\n
+>"You saved us, even though we're your enemy. Thank you, take some fuel.\n
+\n
+>You regain some fuel!`
+DistressCallEvent.talkl = `>You go to offer your help, but suddenly this "courier ship" arms its weapons!.\n
+>It was a trap!\n
+>You flee, before the rebels can do anymore damage\n
+\n
+>Your hull is damaged`
+DistressCallEvent.talkc = 0.7
+DistressCallEvent.fightw = `>You're not interested in finding out if they're genuine or not\n
+>You open fire and destroy the rebel ship.\n
+>Some scrap floating around where the rebel ship was is all that remains. You make some use of it.
+\n
+>Your hull has been reparied!`
+DistressCallEvent.fightl = `>You realise too late that its a trap!\n 
+>The rebels launch a volley and disable your weapons system\n
+>You make your escape, knowing this is a lost fight\n
+\n
+>Your hull takes damage`
+DistressCallEvent.fightc = 0.5
+
+DistressCall.event = DistressCallEvent
+
+const DerelictStation = new Beacon("Derelict Station")
+DerelictStation.description = `>A derelict station drifts silently through the void.\n
+>Your sensors detect life signs inside.\n
+\n
+>Do you dock and investigate?`
+
+const DerelictEvent = new Event()
+DerelictEvent.talkw = `>You hail the station and a weak voice answers.\n
+>Survivors are grateful, and offer spare parts.\n
+\n
+>Your hull is repaired!`
+DerelictEvent.talkl = `>You attempt contact, but the signal triggers an automated defense system.\n
+>Your ship is hit as you back away.\n
+\n
+>Your hull takes damage.`
+DerelictEvent.talkc = 0.6
+DerelictEvent.fightw = `>You target the defense grid and disable it.\n
+>Inside you find useful salvage.\n
+\n
+>Your hull is repaired!`
+DerelictEvent.fightl = `>You fire, but the station retaliates fiercely.\n
+>You retreat under heavy fire.\n
+\n
+>Your hull takes damage.`
+DerelictEvent.fightc = 0.5
+
+DerelictStation.event = DerelictEvent
+
+const SmugglerBeacon = new Beacon("Smuggler's Deal")
+SmugglerBeacon.description = `>A smuggler ship hails you, offering fuel in exchange for silence.\n
+>Do you accept the offer or press them further?`
+
+const SmugglerEvent = new Event()
+SmugglerEvent.talkw = `>You agree quietly. They toss over fuel and warp away.\n
+\n
+>You gain fuel.`
+SmugglerEvent.talkl = `>You try negotiating a better deal, but they bolt without a word.\n
+\n
+>Nothing gained.`
+SmugglerEvent.talkc = 0.6
+SmugglerEvent.fightw = `>You disable their engines and seize the cargo.\n
+>They were well-stocked.\n
+\n
+>You gain fuel and hull is repaired!`
+SmugglerEvent.fightl = `>They fight back with surprising ferocity.\n
+>You take damage before they escape.\n
+\n
+>Your hull takes damage.`
+SmugglerEvent.fightc = 0.4
+
+SmugglerBeacon.event = SmugglerEvent
+
+const ProbeBeacon = new Beacon("Ancient Probe")
+ProbeBeacon.description = `>You find a strange ancient probe drifting silently.\n
+>Do you attempt to interface with it or destroy it from a distance?`
+
+const ProbeEvent = new Event()
+ProbeEvent.talkw = `>Your systems decipher the signal.\n
+>The probe transmits star charts and fuel-saving routes.\n
+\n
+>You gain fuel.`
+ProbeEvent.talkl = `>The signal corrupts your navigation system temporarily.\n
+>You fix it, but it burns extra fuel.\n
+\n
+>You lose fuel.`
+ProbeEvent.talkc = 0.6
+ProbeEvent.fightw = `>The probe explodes, revealing hidden tech inside.\n
+>You recover salvage.\n
+\n
+>Your hull is repaired!`
+ProbeEvent.fightl = `>You shoot it, but the detonation sends debris slamming into your ship.\n
+\n
+>Your hull takes damage.`
+ProbeEvent.fightc = 0.5
+
+ProbeBeacon.event = ProbeEvent
+
+const GhostSignal = new Beacon("Ghost Signal")
+GhostSignal.description = `>A mysterious repeating signal lures you off-course.\n
+>Do you try to decrypt it or destroy the source?`
+
+const GhostEvent = new Event()
+GhostEvent.talkw = `>The message was a warning.\n
+>You course-correct just in time to avoid a minefield.\n
+\n
+>You save fuel.`
+GhostEvent.talkl = `>The signal fades, and you waste precious time analyzing it.\n
+\n
+>You lose fuel.`
+GhostEvent.talkc = 0.7
+GhostEvent.fightw = `>You find a cloaked drone emitting the signal and destroy it.\n
+>Data logs aboard provide intel.\n
+\n
+>Your hull is repaired!`
+GhostEvent.fightl = `>A second drone ambushes you while you're distracted.\n
+\n
+>Your hull takes damage.`
+GhostEvent.fightc = 0.5
+GhostSignal.event = GhostEvent
+
+const FedBeacon = new Beacon("Federation Patrol")
+FedBeacon.description = `>A federation patrol demands to scan your ship for contraband.\n
+>Do you comply or fight back?`
+
+const FedEvent = new Event()
+FedEvent.talkw = `>The scan clears you. They top off your fuel as thanks.\n
+\n
+>You gain fuel.`
+FedEvent.talkl = `>You argue your case, but they fine you and take resources.\n
+\n
+>You lose fuel.`
+FedEvent.talkc = 0.8
+FedEvent.fightw = `>You disable their sensors and flee before backup arrives.\n
+\n
+>Your hull is damaged, but you escape.`
+FedEvent.fightl = `>You engage, but they overpower you quickly.\n
+\n
+>Your hull takes damage.`
+FedEvent.fightc = 0.3
+
+FedBeacon.event = FedEvent
+
+const AsteroidBeacon = new Beacon("Asteroid Ambush")
+AsteroidBeacon.description = `>An asteroid field appears on your course.\n
+>You pick up a hidden energy signature nearby.\n
+>Do you investigate or shoot first?`
+
+const AsteroidEvent = new Event()
+AsteroidEvent.talkw = `>A ship disguised in the field surrenders without a fight.\n
+>You collect fuel and parts.\n
+\n
+>You gain fuel and hull repair!`
+AsteroidEvent.talkl = `>They pretend to surrender, then fire!\n
+>You escape, but your ship is hit.\n
+\n
+>Your hull takes damage.`
+AsteroidEvent.talkc = 0.6
+AsteroidEvent.fightw = `>Your pre-emptive strike disables the enemy.\n
+>You salvage parts from the wreck.\n
+\n
+>Your hull is repaired!`
+AsteroidEvent.fightl = `>Your shots miss and draw attention. You're outgunned.\n
+\n
+>Your hull takes damage.`
+AsteroidEvent.fightc = 0.5
+
+AsteroidBeacon.event = AsteroidEvent
+
+const MinefieldBeacon = new Beacon("Rebel Minefield")
+MinefieldBeacon.description = `>You warp into a rebel-laid minefield.\n
+>A lone rebel ship hails you—suspiciously helpful.\n
+>Do you accept their guidance?`
+
+const MinefieldEvent = new Event()
+MinefieldEvent.talkw = `>The rebel leads you safely through.\n
+>Perhaps not all rebels are alike.\n
+\n
+>You gain fuel.`
+MinefieldEvent.talkl = `>You follow their directions, but it's a trap!\n
+>You hit a mine.\n
+\n
+>Your hull takes damage.`
+MinefieldEvent.talkc = 0.65
+MinefieldEvent.fightw = `>You destroy the rebel ship, and carefully plot your own path.\n
+\n
+>You escape with minor scrapes.`
+MinefieldEvent.fightl = `>Combat shakes your ship and a mine goes off near you.\n
+\n
+>Your hull takes damage.`
+MinefieldEvent.fightc = 0.4
+
+MinefieldBeacon.event = MinefieldEvent
+
+const TraderBeacon = new Beacon("Trader's Offer")
+TraderBeacon.description = `>A travelling merchant offers to trade fuel for ship diagnostics.\n
+>Do you engage in trade or threaten them for resources?`
+
+const TraderEvent = new Event()
+TraderEvent.talkw = `>You trade peacefully.\n
+>The merchant provides high-efficiency fuel.\n
+\n
+>You gain fuel.`
+TraderEvent.talkl = `>You try to haggle too hard, and they warp away insulted.\n
+\n
+>Nothing gained.`
+TraderEvent.talkc = 0.9
+TraderEvent.fightw = `>You take their fuel by force.\n
+>It works, but leaves you feeling dirty.\n
+\n
+>You gain fuel.`
+TraderEvent.fightl = `>The merchant's ship fights back with surprising firepower.\n
+\n
+>Your hull takes damage.`
+TraderEvent.fightc = 0.3
+
+TraderBeacon.event = TraderEvent
+
+
+
+
 function displayBeacon(beacon){
     document.getElementById("beaconName").innerHTML = beacon.name
     document.getElementById("beaconDescription").innerHTML = beacon.description
 }
 
-let beaconList = [PirateBeacon]
+let beaconList = [PirateBeacon, DistressCall, DerelictStation, SmugglerBeacon, ProbeBeacon, GhostSignal, FedBeacon, AsteroidBeacon, MinefieldBeacon, TraderBeacon]
 
 function jump(){
     let newBeacon = Math.floor(Math.random() * beaconList.length)
