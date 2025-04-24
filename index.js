@@ -453,11 +453,11 @@ function jump(){
 
 function talk(beaconEvent){
     if (PlayerShip.tskill >= beaconEvent.talkc){
-        document.getElementById("beaconDescription").innerHTML = beaconEvent.talkw
         PlayerShip.fuel += 1
+        return beaconEvent.talkw
     } else if (PlayerShip.tskill < beaconEvent.talkc) {
-        document.getElementById("beaconDescription").innerHTML = beaconEvent.talkl
         PlayerShip.hull -= 1
+        return beaconEvent.talkl
     } else {
         return "Beacon Talk Error"
     }
@@ -521,7 +521,7 @@ let gameOver = false
 
 function resetGame(){
     console.log(beaconList)
-    beaconList = [PirateBeacon, DistressCall]
+    beaconList = [PirateBeacon, DistressCall, DerelictStation, SmugglerBeacon, ProbeBeacon, GhostSignal, FedBeacon, AsteroidBeacon, MinefieldBeacon, TraderBeacon]
     randomBeaconList = beaconRandomiser(beaconList)
     console.log(randomBeaconList)
     PlayerShip = new Ship("Federation Courier")
