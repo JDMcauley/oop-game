@@ -423,9 +423,7 @@ function displayBeacon(beacon){
     document.getElementById("beaconDescription").innerHTML = beacon.description
 }
 
-// let beaconList = [PirateBeacon, DistressCall, DerelictStation, SmugglerBeacon, ProbeBeacon, GhostSignal, FedBeacon, AsteroidBeacon, MinefieldBeacon, TraderBeacon]
-
-let beaconList = [PirateBeacon, DistressCall]
+let beaconList = [PirateBeacon, DistressCall, DerelictStation, SmugglerBeacon, ProbeBeacon, GhostSignal, FedBeacon, AsteroidBeacon, MinefieldBeacon, TraderBeacon]
 
 function beaconRandomiser(beaconArray) {
     let currentIndex = beaconArray.length
