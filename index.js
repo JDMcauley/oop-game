@@ -441,11 +441,11 @@ function talk(beaconEvent){
 
 function fight(beaconEvent) {
     if (PlayerShip.fskill >= beaconEvent.fightc) {
-        document.getElementById("beaconDescription").innerHTML = beaconEvent.winf
         PlayerShip.hull += 1
+        return beaconEvent.winf
     } else if (PlayerShip.fskill < beaconEvent.fightc) {
-        document.getElementById("beaconDescription").innerHTML = beaconEvent.fightl
         PlayerShip.hull -= 2
+        return beaconEvent.fightl
     } else {
         return "Beacon Fight Error"
     }
@@ -469,7 +469,29 @@ function gameOver(){
     }
 }
 
+function displayHelp(){
+    document.getElementById("beaconName").innerHTML = "Help"
+    document.getElementById("beaconDescription").innerHTML = `>Controls:\n
+>Jump to new beacon type "jump"\n
+>To engage an event aggressively type "fight"\n
+>To engage an event diplomatically type "talk\n
+>To see your ships status type "ship"\n
+>Type "back" to return to the game`
+}
+
+function displayShip(){
+    document.getElementById("beaconName").innerHTML = "Ship Console"
+    document.getElementById("beaconDescription").innerHTML = `>Ship Status:\n
+>Hull is at ${PlayerShip.hull}\n
+>Fuel is at ${PlayerShip.fuel}\n
+\n
+>Type "back" to return`
+}
+
 let currentBeacon = StartBeacon
+fightOngoing = false
+talkOngoing = false
+    
 
 displayBeacon(currentBeacon)
 
@@ -478,16 +500,20 @@ document.addEventListener("submit", function(e) {
     e.preventDefault()
     
     command = document.getElementById("userCommand").value.toLowerCase()
-    
+
     switch (command) {
         case "jump":
             currentBeacon = jump()
+            fightOngoing = false
+            talkOngoing = false
             displayBeacon(currentBeacon)
             document.getElementById("userCommand").value = ""
             break;
         case "talk":
             currentEvent = currentBeacon.event
-            talk(currentEvent)
+            talkOngoing = true
+            eventResult = talk(currentEvent)
+            document.getElementById("beaconDescription").innerHTML = eventResult
             document.getElementById("userCommand").value = ""
             if (PlayerShip.hull <= 0 || PlayerShip.fuel <= 0){
                 gameOver()
@@ -495,16 +521,36 @@ document.addEventListener("submit", function(e) {
             break;
         case "fight":
             currentEvent = currentBeacon.event
-            fight(currentEvent)
+            fightOngoing = true
+            eventResult = fight(currentEvent)
+            document.getElementById("beaconDescription").innerHTML = eventResult
             document.getElementById("userCommand").value = ""
             if (PlayerShip.hull <= 0 || PlayerShip.fuel <= 0){
                 gameOver()
             }
             break;
+        case "ship":
+            displayShip()
+            document.getElementById("userCommand").value = ""
+            break;
         case "start":
             PlayerShip = new Ship("Federation Courier");
             currentBeacon = StartBeacon
+            fightOngoing = false
+            talkOngoing = false   
             displayBeacon(currentBeacon)
+            document.getElementById("userCommand").value = ""
+            break;
+        case "help":
+            displayHelp()
+            document.getElementById("userCommand").value = ""
+            break;
+        case "back":
+            if (fightOngoing == true || talkOngoing == true){
+                document.getElementById("beaconDescription").innerHTML = eventResult
+            } else {
+                displayBeacon(currentBeacon)
+            }
             document.getElementById("userCommand").value = ""
             break;
         default:
