@@ -155,7 +155,7 @@ StartBeacon.description = `>You are a courier for the galactic federation, curre
 >You carry with you crucial data for the survival of the federation\n
 >Use your warp drive to move across rebel controlled space, from one beacon to the next\n
 >Be wary of your fuel reserves and damage to your ships hull\n
-Type 'Help' to see a list of commands`
+Type "Help" to see a list of commands`
 
 const PirateBeacon = new Beacon("Pirates!")
 PirateBeacon.description = `>As you appear at the next beacon, you see lasers chasing after a civilian ship\n
@@ -413,17 +413,44 @@ TraderEvent.fightc = 0.3
 
 TraderBeacon.event = TraderEvent
 
+const FinalBeacon = new Beacon("Final Beacon")
+FinalBeacon.description = `>You Win\n
+>Type "start" to restart`
+
 function displayBeacon(beacon){
+    console.log(currentBeacon)
     document.getElementById("beaconName").innerHTML = beacon.name
     document.getElementById("beaconDescription").innerHTML = beacon.description
 }
 
-let beaconList = [PirateBeacon, DistressCall, DerelictStation, SmugglerBeacon, ProbeBeacon, GhostSignal, FedBeacon, AsteroidBeacon, MinefieldBeacon, TraderBeacon]
+// let beaconList = [PirateBeacon, DistressCall, DerelictStation, SmugglerBeacon, ProbeBeacon, GhostSignal, FedBeacon, AsteroidBeacon, MinefieldBeacon, TraderBeacon]
+
+let beaconList = [PirateBeacon, DistressCall]
+
+function beaconRandomiser(beaconArray) {
+    let currentIndex = beaconArray.length
+
+    while (currentIndex != 0){
+        let randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex--
+
+        [beaconArray[currentIndex], beaconArray[randomIndex]] = [beaconArray[randomIndex], beaconArray[currentIndex]]
+    }
+
+    return beaconArray
+}
+
+let randomBeaconList = beaconRandomiser(beaconList)
 
 function jump(){
-    let newBeacon = Math.floor(Math.random() * beaconList.length)
-    PlayerShip.fuel -= 1
-    return beaconList[newBeacon]
+    if (randomBeaconList.length == 0 && gameOver != true){
+        gameOver = true
+        return FinalBeacon
+    } else {
+        newBeacon = randomBeaconList.pop()
+        PlayerShip.fuel -= 1
+        return newBeacon
+    }
 }
 
 function talk(beaconEvent){
@@ -451,7 +478,7 @@ function fight(beaconEvent) {
     }
 }
 
-function gameOver(){
+function gameOverScreen(){
     if (PlayerShip.hull <= 0){
         document.getElementById("beaconName").innerHTML = "GAME OVER"
         document.getElementById("beaconDescription").innerHTML = `>You knew it was coming\n
@@ -481,7 +508,8 @@ function displayHelp(){
 
 function displayShip(){
     document.getElementById("beaconName").innerHTML = "Ship Console"
-    document.getElementById("beaconDescription").innerHTML = `>Ship Status:\n
+    document.getElementById("beaconDescription").innerHTML = `>Name: ${PlayerShip.name}\n
+>Ship Status:\n
 >Hull is at ${PlayerShip.hull}\n
 >Fuel is at ${PlayerShip.fuel}\n
 \n
@@ -489,12 +517,22 @@ function displayShip(){
 }
 
 let currentBeacon = StartBeacon
-fightOngoing = false
-talkOngoing = false
-    
+let fightOngoing = false
+let talkOngoing = false
+let gameOver = false
+
+function resetGame(){
+    console.log(beaconList)
+    beaconList = [PirateBeacon, DistressCall]
+    randomBeaconList = beaconRandomiser(beaconList)
+    console.log(randomBeaconList)
+    PlayerShip = new Ship("Federation Courier")
+    fightOngoing = false
+    talkOngoing = false
+    gameOver = false
+}
 
 displayBeacon(currentBeacon)
-
 
 document.addEventListener("submit", function(e) {
     e.preventDefault()
@@ -516,7 +554,7 @@ document.addEventListener("submit", function(e) {
             document.getElementById("beaconDescription").innerHTML = eventResult
             document.getElementById("userCommand").value = ""
             if (PlayerShip.hull <= 0 || PlayerShip.fuel <= 0){
-                gameOver()
+                gameOverScreen()
             }
             break;
         case "fight":
@@ -526,7 +564,7 @@ document.addEventListener("submit", function(e) {
             document.getElementById("beaconDescription").innerHTML = eventResult
             document.getElementById("userCommand").value = ""
             if (PlayerShip.hull <= 0 || PlayerShip.fuel <= 0){
-                gameOver()
+                gameOverScreen()
             }
             break;
         case "ship":
@@ -534,10 +572,8 @@ document.addEventListener("submit", function(e) {
             document.getElementById("userCommand").value = ""
             break;
         case "start":
-            PlayerShip = new Ship("Federation Courier");
+            resetGame()
             currentBeacon = StartBeacon
-            fightOngoing = false
-            talkOngoing = false   
             displayBeacon(currentBeacon)
             document.getElementById("userCommand").value = ""
             break;
