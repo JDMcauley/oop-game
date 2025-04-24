@@ -12,10 +12,6 @@ class Beacon {
     get description() {
         return this._description;
     }
-    
-    get character() {
-        return this._character
-    }
 
     get event() {
         return this._event
@@ -124,7 +120,7 @@ class Ship {
     }
 
     set fuel(value) {
-        if (value !== "number" || value < 0) {
+        if (typeof value !== "number" || value < 0) {
             return "Invalid. Fuel value must be a postive number."
         }
         this._fuel = value
@@ -417,9 +413,6 @@ TraderEvent.fightc = 0.3
 
 TraderBeacon.event = TraderEvent
 
-
-
-
 function displayBeacon(beacon){
     document.getElementById("beaconName").innerHTML = beacon.name
     document.getElementById("beaconDescription").innerHTML = beacon.description
@@ -458,6 +451,24 @@ function fight(beaconEvent) {
     }
 }
 
+function gameOver(){
+    if (PlayerShip.hull <= 0){
+        document.getElementById("beaconName").innerHTML = "GAME OVER"
+        document.getElementById("beaconDescription").innerHTML = `>You knew it was coming\n
+>Your ships hull was sturdy, but its taken one hit too many.\n
+>As your vessel tears in two, you are left at the mercy of the void and federation at the mercy of the rebels.\n
+\n
+>Type "start" to try again.`
+    } else if (PlayerShip.fuel <= 0){
+        document.getElementById("beaconName").innerHTML = "GAME OVER"
+        document.getElementById("beaconDescription").innerHTML = `>Your ships engine ceases to run, and you begin to drift\n
+>You'd prayed that this was the beacon that would have the fuel you needed. It did not.\n
+>You have plenty of time to contemplate the fate of the federation as you drift into the void\n
+\n
+>Type "start" to try again.`
+    }
+}
+
 let currentBeacon = StartBeacon
 
 displayBeacon(currentBeacon)
@@ -478,10 +489,22 @@ document.addEventListener("submit", function(e) {
             currentEvent = currentBeacon.event
             talk(currentEvent)
             document.getElementById("userCommand").value = ""
+            if (PlayerShip.hull <= 0 || PlayerShip.fuel <= 0){
+                gameOver()
+            }
             break;
         case "fight":
             currentEvent = currentBeacon.event
             fight(currentEvent)
+            document.getElementById("userCommand").value = ""
+            if (PlayerShip.hull <= 0 || PlayerShip.fuel <= 0){
+                gameOver()
+            }
+            break;
+        case "start":
+            PlayerShip = new Ship("Federation Courier");
+            currentBeacon = StartBeacon
+            displayBeacon(currentBeacon)
             document.getElementById("userCommand").value = ""
             break;
         default:
@@ -489,5 +512,4 @@ document.addEventListener("submit", function(e) {
             document.getElementById("errorBox").innerHTML = "Not a valid command"
             break;
     }
-    
 })
