@@ -41,52 +41,52 @@ class Event {
         this._talkChance = 0
     }
 
-    set fightw(value) {
+    set fightWin(value) {
         this._fightWin = value
     }
 
-    set talkw(value) {
+    set talkWin(value) {
         this._talkWin = value
     }    
 
-    set fightl(value){
+    set fightLoss(value){
         this._fightLoss = value
     }
 
-    set fightc(value){
+    set fightChance(value){
         this._fightChance = value
     }
 
-    set talkl(value){
+    set talkLoss(value){
         this._talkLoss = value
     }
 
-    set talkc(value){
+    set talkChance(value){
         this._talkChance = value
     }
     
-    get talkw() {
-        return this._talkWin
+    get talkWin() {
+        return this._talkWinin
     }
 
-    get winf() {
-        return this._fightWin
+    get fightWin() {
+        return this._fightWinin
     }
 
-    get talkl(){
-        return this._talkLoss
+    get talkLoss(){
+        return this._talkLossoss
     }
 
-    get fightl(){
-        return this._fightLoss
+    get fightLoss(){
+        return this._fightLossoss
     }
 
-    get talkc(){
-        return this._talkChance
+    get talkChance(){
+        return this._talkChancehance
     }
 
-    get fightc(){
-        return this._fightChance
+    get fightChance(){
+        return this._fightChancehance
     }
 }
 
@@ -111,11 +111,11 @@ class Ship {
         return this._hull
     }
 
-    get fskill() {
+    get fightSkill() {
         return this._fightSkill
     }
 
-    get tskill(){
+    get talkSkill(){
         return this._talkSkill
     }
 
@@ -133,14 +133,14 @@ class Ship {
         this._hull = value
     }
 
-    set fskill(value){
+    set fightSkill(value){
         if (typeof value !== "number" || value < 0 || value > 1){
             return "Invalid. Fight Skill value must be a number between 0 and 1"
         }
         this._fightSkill = value
     }
 
-    set tskill(value){
+    set talkSkill(value){
         if (typeof value !== "number" || value < 0 || value > 1){
             return "Invalid. Talk Skill value must be a number between 0 and 1"
         }
@@ -164,23 +164,23 @@ PirateBeacon.description = `>As you appear at the next beacon, you see lasers ch
 >Do you come to the aid of the civilians?`
 
 const PirateBeaconEvent = new Event()
-PirateBeaconEvent.talkw = `>You open a channel. After some tense negotiation, the pirates agree to leave.\n
+PirateBeaconEvent.talkWin = `>You open a channel. After some tense negotiation, the pirates agree to leave.\n
 >As thanks, the civilians give you some supplied!\n
 \n
 >You regain some fuel!`
-PirateBeaconEvent.talkl = `>You try to reason with them, but they respond with threats and power up weapons.\n
+PirateBeaconEvent.talkLoss = `>You try to reason with them, but they respond with threats and power up weapons.\n
 >The pirates escape but not before taking a chunk out of your ship.\n
 \n
 >Your hull is damaged`
-PirateBeaconEvent.talkc = 0.7
-PirateBeaconEvent.fightw = `>You open fire and destroy the pirate ship. The civilians escape safely.\n
+PirateBeaconEvent.talkChance = 0.7
+PirateBeaconEvent.fightWin = `>You open fire and destroy the pirate ship. The civilians escape safely.\n
 >You scavenge some scrap from the wreckage.\n
 \n
 >Your hull has been reparied!`
-PirateBeaconEvent.fightl = `>These pirates are skilled, for every hit you land on them they land 2 more on you.\n 
+PirateBeaconEvent.fightLoss = `>These pirates are skilled, for every hit you land on them they land 2 more on you.\n 
 >The pirates continue to chase the civilain after your forced to flee.\n
 >Your hull takes damage`
-PirateBeaconEvent.fightc = 0.5
+PirateBeaconEvent.fightChance = 0.5
 
 PirateBeacon.event = PirateBeaconEvent
 
@@ -192,27 +192,27 @@ DistressCall.description = `>As you finish your jump, your ship picks up a distr
 >Do you help them?`
 
 const DistressCallEvent = new Event()
-DistressCallEvent.talkw = `>You're familiar with the issues their ship is facing, and offer your expertise\n
+DistressCallEvent.talkWin = `>You're familiar with the issues their ship is facing, and offer your expertise\n
 >"You saved us, even though we're your enemy. Thank you, take some fuel.\n
 \n
 >You regain some fuel!`
-DistressCallEvent.talkl = `>You go to offer your help, but suddenly this "courier ship" arms its weapons!.\n
+DistressCallEvent.talkLoss = `>You go to offer your help, but suddenly this "courier ship" arms its weapons!.\n
 >It was a trap!\n
 >You flee, before the rebels can do anymore damage\n
 \n
 >Your hull is damaged`
-DistressCallEvent.talkc = 0.7
-DistressCallEvent.fightw = `>You're not interested in finding out if they're genuine or not\n
+DistressCallEvent.talkChance = 0.7
+DistressCallEvent.fightWin = `>You're not interested in finding out if they're genuine or not\n
 >You open fire and destroy the rebel ship.\n
 >Some scrap floating around where the rebel ship was is all that remains. You make some use of it.
 \n
 >Your hull has been reparied!`
-DistressCallEvent.fightl = `>You realise too late that its a trap!\n 
+DistressCallEvent.fightLoss = `>You realise too late that its a trap!\n 
 >The rebels launch a volley and disable your weapons system\n
 >You make your escape, knowing this is a lost fight\n
 \n
 >Your hull takes damage`
-DistressCallEvent.fightc = 0.5
+DistressCallEvent.fightChance = 0.5
 
 DistressCall.event = DistressCallEvent
 
@@ -223,24 +223,24 @@ DerelictStation.description = `>A derelict station drifts silently through the v
 >Do you dock and investigate?`
 
 const DerelictEvent = new Event()
-DerelictEvent.talkw = `>You hail the station and a weak voice answers.\n
+DerelictEvent.talkWin = `>You hail the station and a weak voice answers.\n
 >Survivors are grateful, and offer spare parts.\n
 \n
 >Your hull is repaired!`
-DerelictEvent.talkl = `>You attempt contact, but the signal triggers an automated defense system.\n
+DerelictEvent.talkLoss = `>You attempt contact, but the signal triggers an automated defense system.\n
 >Your ship is hit as you back away.\n
 \n
 >Your hull takes damage.`
-DerelictEvent.talkc = 0.6
-DerelictEvent.fightw = `>You target the defense grid and disable it.\n
+DerelictEvent.talkChance = 0.6
+DerelictEvent.fightWin = `>You target the defense grid and disable it.\n
 >Inside you find useful salvage.\n
 \n
 >Your hull is repaired!`
-DerelictEvent.fightl = `>You fire, but the station retaliates fiercely.\n
+DerelictEvent.fightLoss = `>You fire, but the station retaliates fiercely.\n
 >You retreat under heavy fire.\n
 \n
 >Your hull takes damage.`
-DerelictEvent.fightc = 0.5
+DerelictEvent.fightChance = 0.5
 
 DerelictStation.event = DerelictEvent
 
@@ -249,22 +249,22 @@ SmugglerBeacon.description = `>A smuggler ship hails you, offering fuel in excha
 >Do you accept the offer or press them further?`
 
 const SmugglerEvent = new Event()
-SmugglerEvent.talkw = `>You agree quietly. They toss over fuel and warp away.\n
+SmugglerEvent.talkWin = `>You agree quietly. They toss over fuel and warp away.\n
 \n
 >You gain fuel.`
-SmugglerEvent.talkl = `>You try negotiating a better deal, but they bolt without a word.\n
+SmugglerEvent.talkLoss = `>You try negotiating a better deal, but they bolt without a word.\n
 \n
 >Nothing gained.`
-SmugglerEvent.talkc = 0.6
-SmugglerEvent.fightw = `>You disable their engines and seize the cargo.\n
+SmugglerEvent.talkChance = 0.6
+SmugglerEvent.fightWin = `>You disable their engines and seize the cargo.\n
 >They were well-stocked.\n
 \n
 >You gain fuel and hull is repaired!`
-SmugglerEvent.fightl = `>They fight back with surprising ferocity.\n
+SmugglerEvent.fightLoss = `>They fight back with surprising ferocity.\n
 >You take damage before they escape.\n
 \n
 >Your hull takes damage.`
-SmugglerEvent.fightc = 0.4
+SmugglerEvent.fightChance = 0.4
 
 SmugglerBeacon.event = SmugglerEvent
 
@@ -273,23 +273,23 @@ ProbeBeacon.description = `>You find a strange ancient probe drifting silently.\
 >Do you attempt to interface with it or destroy it from a distance?`
 
 const ProbeEvent = new Event()
-ProbeEvent.talkw = `>Your systems decipher the signal.\n
+ProbeEvent.talkWin = `>Your systems decipher the signal.\n
 >The probe transmits star charts and fuel-saving routes.\n
 \n
 >You gain fuel.`
-ProbeEvent.talkl = `>The signal corrupts your navigation system temporarily.\n
+ProbeEvent.talkLoss = `>The signal corrupts your navigation system temporarily.\n
 >You fix it, but it burns extra fuel.\n
 \n
 >You lose fuel.`
-ProbeEvent.talkc = 0.6
-ProbeEvent.fightw = `>The probe explodes, revealing hidden tech inside.\n
+ProbeEvent.talkChance = 0.6
+ProbeEvent.fightWin = `>The probe explodes, revealing hidden tech inside.\n
 >You recover salvage.\n
 \n
 >Your hull is repaired!`
-ProbeEvent.fightl = `>You shoot it, but the detonation sends debris slamming into your ship.\n
+ProbeEvent.fightLoss = `>You shoot it, but the detonation sends debris slamming into your ship.\n
 \n
 >Your hull takes damage.`
-ProbeEvent.fightc = 0.5
+ProbeEvent.fightChance = 0.5
 
 ProbeBeacon.event = ProbeEvent
 
@@ -298,22 +298,22 @@ GhostSignal.description = `>A mysterious repeating signal lures you off-course.\
 >Do you try to decrypt it or destroy the source?`
 
 const GhostEvent = new Event()
-GhostEvent.talkw = `>The message was a warning.\n
+GhostEvent.talkWin = `>The message was a warning.\n
 >You course-correct just in time to avoid a minefield.\n
 \n
 >You save fuel.`
-GhostEvent.talkl = `>The signal fades, and you waste precious time analyzing it.\n
+GhostEvent.talkLoss = `>The signal fades, and you waste precious time analyzing it.\n
 \n
 >You lose fuel.`
-GhostEvent.talkc = 0.7
-GhostEvent.fightw = `>You find a cloaked drone emitting the signal and destroy it.\n
+GhostEvent.talkChance = 0.7
+GhostEvent.fightWin = `>You find a cloaked drone emitting the signal and destroy it.\n
 >Data logs aboard provide intel.\n
 \n
 >Your hull is repaired!`
-GhostEvent.fightl = `>A second drone ambushes you while you're distracted.\n
+GhostEvent.fightLoss = `>A second drone ambushes you while you're distracted.\n
 \n
 >Your hull takes damage.`
-GhostEvent.fightc = 0.5
+GhostEvent.fightChance = 0.5
 GhostSignal.event = GhostEvent
 
 const FedBeacon = new Beacon("Federation Patrol")
@@ -321,20 +321,20 @@ FedBeacon.description = `>A federation patrol demands to scan your ship for cont
 >Do you comply or fight back?`
 
 const FedEvent = new Event()
-FedEvent.talkw = `>The scan clears you. They top off your fuel as thanks.\n
+FedEvent.talkWin = `>The scan clears you. They top off your fuel as thanks.\n
 \n
 >You gain fuel.`
-FedEvent.talkl = `>You argue your case, but they fine you and take resources.\n
+FedEvent.talkLoss = `>You argue your case, but they fine you and take resources.\n
 \n
 >You lose fuel.`
-FedEvent.talkc = 0.8
-FedEvent.fightw = `>You disable their sensors and flee before backup arrives.\n
+FedEvent.talkChance = 0.8
+FedEvent.fightWin = `>You disable their sensors and flee before backup arrives.\n
 \n
 >Your hull is damaged, but you escape.`
-FedEvent.fightl = `>You engage, but they overpower you quickly.\n
+FedEvent.fightLoss = `>You engage, but they overpower you quickly.\n
 \n
 >Your hull takes damage.`
-FedEvent.fightc = 0.3
+FedEvent.fightChance = 0.3
 
 FedBeacon.event = FedEvent
 
@@ -344,23 +344,23 @@ AsteroidBeacon.description = `>An asteroid field appears on your course.\n
 >Do you investigate or shoot first?`
 
 const AsteroidEvent = new Event()
-AsteroidEvent.talkw = `>A ship disguised in the field surrenders without a fight.\n
+AsteroidEvent.talkWin = `>A ship disguised in the field surrenders without a fight.\n
 >You collect fuel and parts.\n
 \n
 >You gain fuel and hull repair!`
-AsteroidEvent.talkl = `>They pretend to surrender, then fire!\n
+AsteroidEvent.talkLoss = `>They pretend to surrender, then fire!\n
 >You escape, but your ship is hit.\n
 \n
 >Your hull takes damage.`
-AsteroidEvent.talkc = 0.6
-AsteroidEvent.fightw = `>Your pre-emptive strike disables the enemy.\n
+AsteroidEvent.talkChance = 0.6
+AsteroidEvent.fightWin = `>Your pre-emptive strike disables the enemy.\n
 >You salvage parts from the wreck.\n
 \n
 >Your hull is repaired!`
-AsteroidEvent.fightl = `>Your shots miss and draw attention. You're outgunned.\n
+AsteroidEvent.fightLoss = `>Your shots miss and draw attention. You're outgunned.\n
 \n
 >Your hull takes damage.`
-AsteroidEvent.fightc = 0.5
+AsteroidEvent.fightChance = 0.5
 
 AsteroidBeacon.event = AsteroidEvent
 
@@ -370,22 +370,22 @@ MinefieldBeacon.description = `>You warp into a rebel-laid minefield.\n
 >Do you accept their guidance?`
 
 const MinefieldEvent = new Event()
-MinefieldEvent.talkw = `>The rebel leads you safely through.\n
+MinefieldEvent.talkWin = `>The rebel leads you safely through.\n
 >Perhaps not all rebels are alike.\n
 \n
 >You gain fuel.`
-MinefieldEvent.talkl = `>You follow their directions, but it's a trap!\n
+MinefieldEvent.talkLoss = `>You follow their directions, but it's a trap!\n
 >You hit a mine.\n
 \n
 >Your hull takes damage.`
-MinefieldEvent.talkc = 0.65
-MinefieldEvent.fightw = `>You destroy the rebel ship, and carefully plot your own path.\n
+MinefieldEvent.talkChance = 0.65
+MinefieldEvent.fightWin = `>You destroy the rebel ship, and carefully plot your own path.\n
 \n
 >You escape with minor scrapes.`
-MinefieldEvent.fightl = `>Combat shakes your ship and a mine goes off near you.\n
+MinefieldEvent.fightLoss = `>Combat shakes your ship and a mine goes off near you.\n
 \n
 >Your hull takes damage.`
-MinefieldEvent.fightc = 0.4
+MinefieldEvent.fightChance = 0.4
 
 MinefieldBeacon.event = MinefieldEvent
 
@@ -394,22 +394,22 @@ TraderBeacon.description = `>A travelling merchant offers to trade fuel for ship
 >Do you engage in trade or threaten them for resources?`
 
 const TraderEvent = new Event()
-TraderEvent.talkw = `>You trade peacefully.\n
+TraderEvent.talkWin = `>You trade peacefully.\n
 >The merchant provides high-efficiency fuel.\n
 \n
 >You gain fuel.`
-TraderEvent.talkl = `>You try to haggle too hard, and they warp away insulted.\n
+TraderEvent.talkLoss = `>You try to haggle too hard, and they warp away insulted.\n
 \n
 >Nothing gained.`
-TraderEvent.talkc = 0.9
-TraderEvent.fightw = `>You take their fuel by force.\n
+TraderEvent.talkChance = 0.9
+TraderEvent.fightWin = `>You take their fuel by force.\n
 >It works, but leaves you feeling dirty.\n
 \n
 >You gain fuel.`
-TraderEvent.fightl = `>The merchant's ship fights back with surprising firepower.\n
+TraderEvent.fightLoss = `>The merchant's ship fights back with surprising firepower.\n
 \n
 >Your hull takes damage.`
-TraderEvent.fightc = 0.3
+TraderEvent.fightChance = 0.3
 
 TraderBeacon.event = TraderEvent
 
@@ -452,12 +452,12 @@ function jump(){
 }
 
 function talk(beaconEvent){
-    if (PlayerShip.tskill >= beaconEvent.talkc){
+    if (PlayerShip.talkSkill >= beaconEvent.talkChance){
         PlayerShip.fuel += 1
-        return beaconEvent.talkw
-    } else if (PlayerShip.tskill < beaconEvent.talkc) {
+        return beaconEvent.talkWin
+    } else if (PlayerShip.talkSkill < beaconEvent.talkChance) {
         PlayerShip.hull -= 1
-        return beaconEvent.talkl
+        return beaconEvent.talkLoss
     } else {
         return "Beacon Talk Error"
     }
@@ -465,12 +465,12 @@ function talk(beaconEvent){
 }
 
 function fight(beaconEvent) {
-    if (PlayerShip.fskill >= beaconEvent.fightc) {
+    if (PlayerShip.fightSkill >= beaconEvent.fightChance) {
         PlayerShip.hull += 1
-        return beaconEvent.winf
-    } else if (PlayerShip.fskill < beaconEvent.fightc) {
+        return beaconEvent.fightWin
+    } else if (PlayerShip.fightSkill < beaconEvent.fightChance) {
         PlayerShip.hull -= 2
-        return beaconEvent.fightl
+        return beaconEvent.fightLoss
     } else {
         return "Beacon Fight Error"
     }
