@@ -150,6 +150,10 @@ class Ship {
 
 let PlayerShip = new Ship("Federation Courier");
 
+const GilaMonster = new Ship("Gila Monster")
+GilaMonster.fightSkill = 0.8
+GilaMonster.talkSkill = 0.2
+
 const StartBeacon = new Beacon("Welcome to Warp Drive");
 StartBeacon.description = `>You are a courier for the galactic federation, currently embroiled civil war, and losing.\n
 >You carry with you crucial data for the survival of the federation\n
@@ -415,6 +419,9 @@ TraderBeacon.event = TraderEvent
 
 const FinalBeacon = new Beacon("Final Beacon")
 FinalBeacon.description = `>You Win\n
+\n
+\nYou have unlocked a new ship: Gila Monster.
+\n
 >Type "start" to restart`
 
 function displayBeacon(beacon){
@@ -439,10 +446,12 @@ function beaconRandomiser(beaconArray) {
 }
 
 let randomBeaconList = beaconRandomiser(beaconList)
+let shipUnlock = false
 
 function jump(){
     if (randomBeaconList.length == 0 && gameOver != true){
         gameOver = true
+        shipUnlock = true
         return FinalBeacon
     } else {
         newBeacon = randomBeaconList.pop()
@@ -520,11 +529,13 @@ let talkOngoing = false
 let gameOver = false
 
 function resetGame(){
-    console.log(beaconList)
     beaconList = [PirateBeacon, DistressCall, DerelictStation, SmugglerBeacon, ProbeBeacon, GhostSignal, FedBeacon, AsteroidBeacon, MinefieldBeacon, TraderBeacon]
     randomBeaconList = beaconRandomiser(beaconList)
-    console.log(randomBeaconList)
-    PlayerShip = new Ship("Federation Courier")
+    if (shipUnlock == true){
+        PlayerShip = GilaMonster
+    } else{
+        PlayerShip = new Ship("Federation Courier")
+    }
     fightOngoing = false
     talkOngoing = false
     gameOver = false
