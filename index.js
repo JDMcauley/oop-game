@@ -66,27 +66,27 @@ class Event {
     }
     
     get talkWin() {
-        return this._talkWinin
+        return this._talkWin
     }
 
     get fightWin() {
-        return this._fightWinin
+        return this._fightWin
     }
 
     get talkLoss(){
-        return this._talkLossoss
+        return this._talkLoss
     }
 
     get fightLoss(){
-        return this._fightLossoss
+        return this._fightLoss
     }
 
     get talkChance(){
-        return this._talkChancehance
+        return this._talkChance
     }
 
     get fightChance(){
-        return this._fightChancehance
+        return this._fightChance
     }
 }
 
@@ -316,10 +316,6 @@ ProbeEvent.fightLoss = `>You shoot it, it explodes and you feel your ship shudde
 ProbeEvent.fightChance = 0.5
 
 ProbeBeacon.event = ProbeEvent
-
-const GhostSignal = new Beacon("Ghost Signal")
-GhostSignal.description = `>A mysterious repeating signal lures you off-course.\n
->Do you try to decrypt it or destroy the source?`
 
 const GhostSignal = new Beacon("Ghost Signal")
 GhostSignal.description = `>A mysterious repeating signal lures you off-course.\n
@@ -598,6 +594,7 @@ function resetGame(){
     fightOngoing = false
     talkOngoing = false
     gameOver = false
+    document.getElementById("errorBox").innerHTML = ""
 }
 
 displayBeacon(currentBeacon)
@@ -614,6 +611,7 @@ document.addEventListener("submit", function(e) {
             talkOngoing = false
             displayBeacon(currentBeacon)
             document.getElementById("userCommand").value = ""
+            document.getElementById("errorBox").innerHTML = ""
             break;
         case "talk":
             currentEvent = currentBeacon.event
@@ -621,6 +619,7 @@ document.addEventListener("submit", function(e) {
             eventResult = talk(currentEvent)
             document.getElementById("beaconDescription").innerHTML = eventResult
             document.getElementById("userCommand").value = ""
+            document.getElementById("errorBox").innerHTML = ""
             if (PlayerShip.hull <= 0 || PlayerShip.fuel <= 0){
                 gameOverScreen()
             }
@@ -631,6 +630,7 @@ document.addEventListener("submit", function(e) {
             eventResult = fight(currentEvent)
             document.getElementById("beaconDescription").innerHTML = eventResult
             document.getElementById("userCommand").value = ""
+            document.getElementById("errorBox").innerHTML = ""
             if (PlayerShip.hull <= 0 || PlayerShip.fuel <= 0){
                 gameOverScreen()
             }
@@ -638,16 +638,19 @@ document.addEventListener("submit", function(e) {
         case "ship":
             displayShip()
             document.getElementById("userCommand").value = ""
+            document.getElementById("errorBox").innerHTML = ""
             break;
         case "start":
             resetGame()
             currentBeacon = StartBeacon
             displayBeacon(currentBeacon)
             document.getElementById("userCommand").value = ""
+            document.getElementById("errorBox").innerHTML = ""
             break;
         case "help":
             displayHelp()
             document.getElementById("userCommand").value = ""
+            document.getElementById("errorBox").innerHTML = ""
             break;
         case "back":
             if (fightOngoing == true || talkOngoing == true){
@@ -656,6 +659,7 @@ document.addEventListener("submit", function(e) {
                 displayBeacon(currentBeacon)
             }
             document.getElementById("userCommand").value = ""
+            document.getElementById("errorBox").innerHTML = ""
             break;
         default:
             document.getElementById("userCommand").value = ""
